@@ -1,0 +1,22 @@
+GIT
+  remote: https://github.com/jasiek/leptonica-ruby-ffi.git
+  revision: 49381babdd0f4696c3681f5519a4bb72930c40a8
+  specs:
+    leptonica (0.0.2)
+      ffi (~> 1.9)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ffi (1.9.10)
+    rack (1.6.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  leptonica!
+  rack
+
+BUNDLED WITH
+   1.11.2
