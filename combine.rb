@@ -1,8 +1,6 @@
 require 'bundler'
 Bundler.require
-
 require 'tempfile'
-
 
 class Combine
   FORMAT = Leptonica::FILE_FORMAT_MAPPING[:tiff_rle]
@@ -31,7 +29,7 @@ class Combine
   end
 
   def convert_to_pdf(source, destination)
-    Process.wait(Process.spawn({}, "tiff2pdf -o #{destination} #{source}"))
+    Process.wait(Process.spawn({}, "tiff2pdf -n -o #{destination} #{source}"))
   end
 end
 
