@@ -1,4 +1,3 @@
-require 'pp'
 require './combine'
 
 class App < Sinatra::Base
@@ -15,19 +14,15 @@ class App < Sinatra::Base
 EOF
   end
 
-  before do
-    @tempfile = Tempfile.new
-  end
-  
   post '/api/process' do
+    # Looks like tempfiles are automatically removed by the GC via a finalizer.
+    tempfile = Tempfile.new("pdf-combine")
     input_files = params[:file].sort_by do |f|
       f[:filename]
     end.map do |f|
       f[:tempfile].path
     end
-    Combine.new.process(sources: input_files, destination: @tempfile.path)
-    send_file @tempfile.path, type: :pdf
+    Combine.new.process(sources: input_files, destination: tempfile.path)
+    send_file tempfile.path, type: :pdf, filename: Time.now.strftime("%Y%m%d-%H%M%S-%L.pdf")
   end
-
-  #TODO: Cleanup of tempfiles
 end
