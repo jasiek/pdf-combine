@@ -1,6 +1,13 @@
 require './combine'
 
 class App < Sinatra::Base
+  get '/robots.txt' do
+    <<EOF
+User-Agent: *
+Disallow: /
+EOF
+  end
+  
   get '/' do
     <<EOF
 <html>
