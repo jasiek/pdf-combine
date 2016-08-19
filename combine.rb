@@ -18,13 +18,23 @@ class Combine
   def convert_to_multipage_tiff(sources, destination)
     binarized_tiffs = sources.map do |source_filename|
       input = Leptonica::Pix.read(source_filename)
+      next input if input.depth == 1
+
       output = Leptonica::Pix.new(LeptonicaFFI.pixConvertRGBToGray(input.pointer, 0, 0, 0))
       output = Leptonica::Pix.new(LeptonicaFFI.pixContrastNorm(nil, output.pointer, 100, 100, 55, 1, 1))
       LeptonicaFFI.pixSauvolaBinarizeTiled(output.pointer, 8, 0.34, 1, 1, nil, pix_ptr = FFI::MemoryPointer.new(:pointer))
       pix_ptr
     end
     binarized_tiffs.each_with_index do |pix, index|
-      LeptonicaFFI::pixWriteTiff(destination, pix.get_pointer(0), FORMAT, index == 0 ? "w" : "a")
+      LeptonicaFFI::pixWriteTiff(destination, pointer(pix), FORMAT, index == 0 ? "w" : "a")
+    end
+  end
+
+  def pointer(pix)
+    if pix.respond_to? :pointer
+      pix.pointer
+    else
+      pix.get_pointer(0)
     end
   end
 
