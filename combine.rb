@@ -20,6 +20,7 @@ class Combine
       input = Leptonica::Pix.read(source_filename)
       next input if input.depth == 1
 
+      input = Leptonica::Pix.new(LeptonicaFFI.pixConvertTo32(input.pointer))
       output = Leptonica::Pix.new(LeptonicaFFI.pixConvertRGBToGray(input.pointer, 0, 0, 0))
       output = Leptonica::Pix.new(LeptonicaFFI.pixContrastNorm(nil, output.pointer, 100, 100, 55, 1, 1))
       LeptonicaFFI.pixSauvolaBinarizeTiled(output.pointer, 8, 0.34, 1, 1, nil, pix_ptr = FFI::MemoryPointer.new(:pointer))
