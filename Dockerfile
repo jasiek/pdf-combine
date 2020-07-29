@@ -8,3 +8,5 @@ RUN bundle install
 
 COPY . .
 CMD ["rackup"]
+
+

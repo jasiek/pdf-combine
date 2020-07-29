@@ -11,6 +11,9 @@ GEM
     ffi (1.13.1)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
+    nio4r (2.5.2)
+    puma (4.3.5)
+      nio4r (~> 2.0)
     rack (2.2.3)
     rack-protection (2.0.8.1)
       rack
@@ -27,6 +30,7 @@ PLATFORMS
 
 DEPENDENCIES
   leptonica!
+  puma
   rack
   sinatra
 

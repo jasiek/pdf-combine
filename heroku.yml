@@ -2,4 +2,4 @@ build:
   docker:
     web: Dockerfile
 run:
-  web: rackup
+  web: rackup -p $PORT
