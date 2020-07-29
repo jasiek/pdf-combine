@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/jasiek/leptonica-ruby-ffi.git
-  revision: 49381babdd0f4696c3681f5519a4bb72930c40a8
+  revision: cc19f705729da5c479993cc87dad6e30a5ab5991
   specs:
     leptonica (0.0.2)
       ffi (~> 1.9)
@@ -8,15 +8,19 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    ffi (1.9.10)
-    rack (1.6.4)
-    rack-protection (1.5.3)
+    ffi (1.13.1)
+    mustermann (1.1.1)
+      ruby2_keywords (~> 0.0.1)
+    rack (2.2.3)
+    rack-protection (2.0.8.1)
       rack
-    sinatra (1.4.7)
-      rack (~> 1.5)
-      rack-protection (~> 1.4)
-      tilt (>= 1.3, < 3)
-    tilt (2.0.5)
+    ruby2_keywords (0.0.2)
+    sinatra (2.0.8.1)
+      mustermann (~> 1.0)
+      rack (~> 2.0)
+      rack-protection (= 2.0.8.1)
+      tilt (~> 2.0)
+    tilt (2.0.10)
 
 PLATFORMS
   ruby
@@ -27,4 +31,4 @@ DEPENDENCIES
   sinatra
 
 BUNDLED WITH
-   1.11.2
+   2.1.2
