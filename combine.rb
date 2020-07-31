@@ -15,9 +15,6 @@ class Combine
     ocrpdf = ocr_my_pdf(pdf)
     
     FileUtils.mv(ocrpdf, destination)
-    return 0
-  rescue
-    return 1
   ensure
     @tempfiles.each do |t|
       t.unlink
