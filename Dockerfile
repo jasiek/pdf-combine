@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
-COPY *.r* vendor ./
+COPY *.r* ./
 EXPOSE 5000
 CMD ["rackup", "--host", "0.0.0.0", "--port", "5000"]
 
