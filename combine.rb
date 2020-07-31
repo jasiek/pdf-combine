@@ -4,30 +4,49 @@ require 'tempfile'
 
 class Combine
   FORMAT = Leptonica::FILE_FORMAT_MAPPING[:tiff_rle]
+
+  def initialize
+    @tempfiles = []
+  end
   
   def process(sources:, destination:)
-    tempfile = Tempfile.new
-    tempfile.close
+    tiff = convert_to_multipage_tiff(sources)
+    pdf = convert_to_pdf(tiff)
+    ocrpdf = ocr_my_pdf(pdf)
     
-    convert_to_multipage_tiff(sources, tempfile.path)
-    convert_to_pdf(tempfile.path, destination)
+    FileUtils.mv(ocrpdf, destination)
+    return 0
+  rescue
+    return 1
   ensure
-    tempfile.unlink
+    @tempfiles.each do |t|
+      t.unlink
+    end
   end
 
-  def convert_to_multipage_tiff(sources, destination)
-    binarized_tiffs = sources.map do |source_filename|
-      input = Leptonica::Pix.read(source_filename)
-      next input if input.depth == 1
+  def with_tempfile
+    tempfile = Tempfile.new
+    tempfile.close
+    @tempfiles << tempfile
+    yield destination = tempfile.path
+    destination
+  end
 
-      input = Leptonica::Pix.new(LeptonicaFFI.pixConvertTo32(input.pointer))
-      output = Leptonica::Pix.new(LeptonicaFFI.pixConvertRGBToGray(input.pointer, 0, 0, 0))
-      output = Leptonica::Pix.new(LeptonicaFFI.pixContrastNorm(nil, output.pointer, 100, 100, 55, 1, 1))
-      LeptonicaFFI.pixSauvolaBinarizeTiled(output.pointer, 8, 0.34, 1, 1, nil, pix_ptr = FFI::MemoryPointer.new(:pointer))
-      pix_ptr
-    end
-    binarized_tiffs.each_with_index do |pix, index|
-      LeptonicaFFI::pixWriteTiff(destination, pointer(pix), FORMAT, index == 0 ? "w" : "a")
+  def convert_to_multipage_tiff(sources)
+    with_tempfile do |destination|
+      binarized_tiffs = sources.map do |source_filename|
+        input = Leptonica::Pix.read(source_filename)
+        next input if input.depth == 1
+        
+        input = Leptonica::Pix.new(LeptonicaFFI.pixConvertTo32(input.pointer))
+        output = Leptonica::Pix.new(LeptonicaFFI.pixConvertRGBToGray(input.pointer, 0, 0, 0))
+        output = Leptonica::Pix.new(LeptonicaFFI.pixContrastNorm(nil, output.pointer, 100, 100, 55, 1, 1))
+        LeptonicaFFI.pixSauvolaBinarizeTiled(output.pointer, 8, 0.34, 1, 1, nil, pix_ptr = FFI::MemoryPointer.new(:pointer))
+        pix_ptr
+      end
+      binarized_tiffs.each_with_index do |pix, index|
+        LeptonicaFFI::pixWriteTiff(destination, pointer(pix), FORMAT, index == 0 ? "w" : "a")
+      end
     end
   end
 
@@ -39,8 +58,16 @@ class Combine
     end
   end
 
-  def convert_to_pdf(source, destination)
-    Process.wait(Process.spawn({}, "tiff2pdf -n -o #{destination} #{source}"))
+  def convert_to_pdf(source)
+    with_tempfile do |destination|
+      Process.wait(Process.spawn({}, "tiff2pdf -n -o #{destination} #{source}"))
+    end
+  end
+
+  def ocr_my_pdf(source)
+    with_tempfile do |destination|
+      Process.wait(Process.spawn({}, "ocrmypdf -l eng+pol --rotate-pages --deskew --jobs 4 --output-type pdfa #{source} #{destination}"))
+    end
   end
 end
 
