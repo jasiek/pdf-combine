@@ -7,4 +7,5 @@ gem 'sinatra'
 
 group :development do
   gem 'test-unit'
+  gem 'pdf-reader'
 end

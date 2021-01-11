@@ -29,7 +29,7 @@ EOF
     end.map do |f|
       f[:tempfile].path
     end
-    Combine.new.process(sources: input_files, destination: tempfile.path)
+    Combine.new.process(sources: input_files, destination: tempfile.path, ocr: false)
     send_file tempfile.path, type: :pdf, filename: Time.now.strftime("%Y%m%d-%H%M%S-%L.pdf")
   end
 end
