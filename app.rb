@@ -12,6 +12,7 @@ EOF
     <<EOF
 <html>
 <body>
+<h1>PDF Optimizer</h1>
 <form action="/api/process" method="post" enctype="multipart/form-data">
 <input type="file" name="file[]" multiple>
 <input type="checkbox" name="ocr" id="ocr" value="yes">
