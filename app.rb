@@ -14,6 +14,8 @@ EOF
 <body>
 <form action="/api/process" method="post" enctype="multipart/form-data">
 <input type="file" name="file[]" multiple>
+<input type="checkbox" name="ocr" id="ocr" value="yes">
+<label for="ocr">OCR?</label>
 <input type="submit">
 </form>
 </body>
@@ -29,7 +31,7 @@ EOF
     end.map do |f|
       f[:tempfile].path
     end
-    Combine.new.process(sources: input_files, destination: tempfile.path, ocr: false)
+    Combine.new.process(sources: input_files, destination: tempfile.path, ocr: params[:ocr])
     send_file tempfile.path, type: :pdf, filename: Time.now.strftime("%Y%m%d-%H%M%S-%L.pdf")
   end
 end
