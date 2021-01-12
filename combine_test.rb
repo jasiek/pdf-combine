@@ -40,4 +40,12 @@ class CombineTest < Test::Unit::TestCase
     @combine.process(sources: ['test_data/multi.tif'], destination: @tempfile.path, ocr: false)
     assert_equal files('jpeg').size, PDF::Reader.new(@tempfile.path).page_count
   end
+
+  def test_multipage_pdf
+    # Not currently supported
+    assert_raises RuntimeError do
+      @combine.process(sources: ['test_data/multi.pdf'], destination: @tempfile.path, ocr: false)
+      assert_equal files('jpeg').size, PDF::Reader.new(@tempfile.path).page_count
+    end
+  end
 end

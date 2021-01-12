@@ -44,12 +44,15 @@ class Combine
     with_tempfile do |destination|
       # If this is a multi-page tiff, then process it differently.
       LeptonicaFFI.findFileFormat(sources.first, format = FFI::MemoryPointer.new(:int32))
-      if sources.size == 1 && TIFF_FORMATS.include?(format.read(:int32))
+      format = format.read(:int32)
+      if sources.size == 1 && TIFF_FORMATS.include?(format)
         pixa = LeptonicaFFI.pixaReadMultipageTiff(sources.first)
         size = LeptonicaFFI.pixaGetCount(pixa)
         binarized_tiffs = size.times.map do |i|
           binarize_single(LeptonicaFFI.pixaGetPix(pixa, i, Leptonica::L_CLONE))
         end
+      elsif sources.size == 1 && format == 16
+        raise "Unsupported format"
       else
         binarized_tiffs = sources.map do |source_filename|
           raise ArgumentError unless File.exists?(source_filename)
