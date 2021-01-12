@@ -7,6 +7,7 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
 COPY *.r* ./
+COPY CHECKS ./
 EXPOSE 5000
 CMD ["rackup", "--host", "0.0.0.0", "--port", "5000"]
 
