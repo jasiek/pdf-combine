@@ -5,7 +5,8 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle install --path vendor
 
 FROM ruby:3.1-alpine AS deployment
-RUN apk add --no-cache leptonica tiff-tools ocrmypdf tesseract-ocr-data-pol
+RUN apk add --no-cache leptonica tiff-tools ocrmypdf tesseract-ocr-data-pol py3-pip
+RUN pip3 install --upgrade pytest-metadata
 COPY --from=builder /usr/src/app /usr/src/app
 WORKDIR /usr/src/app
 RUN bundle config set --local path vendor
