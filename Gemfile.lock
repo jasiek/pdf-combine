@@ -8,33 +8,33 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    Ascii85 (1.0.3)
+    Ascii85 (1.1.0)
     afm (0.2.2)
-    ffi (1.14.2)
+    ffi (1.15.5)
     hashery (2.1.2)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
-    nio4r (2.5.4)
-    pdf-reader (2.4.1)
-      Ascii85 (~> 1.0.0)
+    nio4r (2.5.8)
+    pdf-reader (2.8.0)
+      Ascii85 (~> 1.0)
       afm (~> 0.2.1)
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
-    power_assert (1.2.0)
-    puma (5.1.1)
+    power_assert (2.0.1)
+    puma (5.5.2)
       nio4r (~> 2.0)
     rack (2.2.3)
     rack-protection (2.1.0)
       rack
     ruby-rc4 (0.1.5)
-    ruby2_keywords (0.0.2)
+    ruby2_keywords (0.0.5)
     sinatra (2.1.0)
       mustermann (~> 1.0)
       rack (~> 2.2)
       rack-protection (= 2.1.0)
       tilt (~> 2.0)
-    test-unit (3.3.9)
+    test-unit (3.5.3)
       power_assert
     tilt (2.0.10)
     ttfunk (1.7.0)
@@ -51,4 +51,4 @@ DEPENDENCIES
   test-unit
 
 BUNDLED WITH
-   2.1.2
+   2.3.3
