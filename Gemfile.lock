@@ -25,14 +25,14 @@ GEM
     puma (5.5.2)
       nio4r (~> 2.0)
     rack (2.2.3.1)
-    rack-protection (2.1.0)
+    rack-protection (2.2.0)
       rack
     ruby-rc4 (0.1.5)
     ruby2_keywords (0.0.5)
-    sinatra (2.1.0)
+    sinatra (2.2.0)
       mustermann (~> 1.0)
       rack (~> 2.2)
-      rack-protection (= 2.1.0)
+      rack-protection (= 2.2.0)
       tilt (~> 2.0)
     test-unit (3.5.3)
       power_assert
