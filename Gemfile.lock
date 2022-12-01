@@ -12,7 +12,7 @@ GEM
     afm (0.2.2)
     ffi (1.15.5)
     hashery (2.1.2)
-    mustermann (1.1.1)
+    mustermann (2.0.2)
       ruby2_keywords (~> 0.0.1)
     nio4r (2.5.8)
     pdf-reader (2.8.0)
@@ -25,18 +25,18 @@ GEM
     puma (5.6.4)
       nio4r (~> 2.0)
     rack (2.2.3.1)
-    rack-protection (2.2.0)
+    rack-protection (2.2.3)
       rack
     ruby-rc4 (0.1.5)
     ruby2_keywords (0.0.5)
-    sinatra (2.2.0)
-      mustermann (~> 1.0)
+    sinatra (2.2.3)
+      mustermann (~> 2.0)
       rack (~> 2.2)
-      rack-protection (= 2.2.0)
+      rack-protection (= 2.2.3)
       tilt (~> 2.0)
     test-unit (3.5.3)
       power_assert
-    tilt (2.0.10)
+    tilt (2.0.11)
     ttfunk (1.7.0)
 
 PLATFORMS
