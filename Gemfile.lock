@@ -14,7 +14,7 @@ GEM
     hashery (2.1.2)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
-    nio4r (2.5.8)
+    nio4r (2.5.9)
     pdf-reader (2.8.0)
       Ascii85 (~> 1.0)
       afm (~> 0.2.1)
@@ -22,7 +22,7 @@ GEM
       ruby-rc4
       ttfunk
     power_assert (2.0.1)
-    puma (5.6.4)
+    puma (5.6.7)
       nio4r (~> 2.0)
     rack (2.2.6.4)
     rack-protection (2.2.0)
